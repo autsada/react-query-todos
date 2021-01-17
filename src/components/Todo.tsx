@@ -12,7 +12,8 @@ const Todo: React.FC<Props> = ({ todoId, setTodoId }) => {
 
   if (isLoading) return <h4 style={{ color: 'red' }}>Loading...</h4>
 
-  if (error) return <p>{error}</p>
+  // if (error) return <p>{error}</p>
+  if (error) return <p>{error.message}</p>
 
   return (
     <div>

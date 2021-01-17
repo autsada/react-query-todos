@@ -6,7 +6,8 @@ interface Props {}
 
 const AddTodo: React.FC<Props> = () => {
   const [title, setTitle] = useState('')
-  const { addTodo, isLoading, isSuccess, error } = useAddTodo()
+  // const { addTodo, isLoading, isSuccess, error } = useAddTodo()
+  const { mutate, isLoading, isSuccess, error } = useAddTodo()
 
   useEffect(() => {
     if (isSuccess) setTitle('')
@@ -28,14 +29,15 @@ const AddTodo: React.FC<Props> = () => {
           style={{ cursor: 'pointer' }}
           disabled={isLoading || !title}
           onClick={() => {
-            addTodo({ title, completed: false, userId: 11 })
+            // addTodo({ title, completed: false, userId: 11 })
+            mutate({ title, completed: false, userId: 11 })
           }}
         >
           {isLoading ? 'Loading...' : 'Submit'}
         </button>
       </div>
 
-      {error && <p>{error}</p>}
+      {error && <p>{error.message}</p>}
     </div>
   )
 }

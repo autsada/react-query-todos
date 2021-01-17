@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
+import { useQuery } from 'react-query'
 
 export type Todo = {
   id: number
@@ -8,28 +9,31 @@ export type Todo = {
 }
 
 export const useTodos = () => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
-  const [data, setData] = useState<Todo[] | null>(null)
+  // const [isLoading, setIsLoading] = useState(false)
+  // const [error, setError] = useState('')
+  // const [data, setData] = useState<Todo[] | null>(null)
 
-  const fetchTodos = async () => {
-    try {
-      setIsLoading(true)
-      const resData = await fetch('http://localhost:4000/todos').then((res) =>
-        res.json()
-      )
+  // const fetchTodos = async () => {
+  //   try {
+  //     setIsLoading(true)
+  //     const resData = await fetch('http://localhost:4000/todos').then((res) =>
+  //       res.json()
+  //     )
 
-      setData(resData)
-      setIsLoading(false)
-    } catch (err) {
-      setError('Sorry, something went wrong.')
-      setIsLoading(false)
-    }
-  }
+  //     setData(resData)
+  //     setIsLoading(false)
+  //   } catch (err) {
+  //     setError('Sorry, something went wrong.')
+  //     setIsLoading(false)
+  //   }
+  // }
 
-  useEffect(() => {
-    fetchTodos()
-  }, [])
+  // useEffect(() => {
+  //   fetchTodos()
+  // }, [])
 
-  return { data, isLoading, error }
+  // return { data, isLoading, error }
+  return useQuery<Todo[], { message: string }>('todos', () =>
+    fetch('http://localhost:4000/todos').then((res) => res.json())
+  )
 }
