@@ -3,13 +3,13 @@ import { useState } from 'react'
 import { Todo } from './useTodos'
 
 export const useAddTodo = () => {
-  const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState('')
 
   const addTodo = async (newTodo: Omit<Todo, 'id'>) => {
     try {
-      setLoading(true)
+      setIsLoading(true)
 
       const resData = await fetch('http://localhost:4000/todos', {
         method: 'POST',
@@ -20,15 +20,15 @@ export const useAddTodo = () => {
       }).then((res) => res.json())
 
       if (resData) {
-        setSuccess(true)
-        setLoading(false)
+        setIsSuccess(true)
+        setIsLoading(false)
       }
     } catch (err) {
       setError('Sorry, something went wrong.')
-      setLoading(false)
-      setSuccess(false)
+      setIsLoading(false)
+      setIsSuccess(false)
     }
   }
 
-  return { addTodo, loading, success, error }
+  return { addTodo, isLoading, isSuccess, error }
 }

@@ -6,11 +6,11 @@ interface Props {}
 
 const AddTodo: React.FC<Props> = () => {
   const [title, setTitle] = useState('')
-  const { addTodo, loading, success, error } = useAddTodo()
+  const { addTodo, isLoading, isSuccess, error } = useAddTodo()
 
   useEffect(() => {
-    if (success) setTitle('')
-  }, [success])
+    if (isSuccess) setTitle('')
+  }, [isSuccess])
 
   return (
     <div>
@@ -26,12 +26,12 @@ const AddTodo: React.FC<Props> = () => {
         <br />
         <button
           style={{ cursor: 'pointer' }}
-          disabled={loading}
+          disabled={isLoading || !title}
           onClick={() => {
             addTodo({ title, completed: false, userId: 11 })
           }}
         >
-          {loading ? 'Loading...' : 'Submit'}
+          {isLoading ? 'Loading...' : 'Submit'}
         </button>
       </div>
 

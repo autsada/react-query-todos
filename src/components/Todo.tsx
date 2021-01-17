@@ -8,9 +8,9 @@ interface Props {
 }
 
 const Todo: React.FC<Props> = ({ todoId, setTodoId }) => {
-  const { data, loading, error } = useTodo(todoId)
+  const { data, isLoading, error } = useTodo(todoId)
 
-  if (loading) return <h4 style={{ color: 'red' }}>Loading...</h4>
+  if (isLoading) return <h4 style={{ color: 'red' }}>Loading...</h4>
 
   if (error) return <p>{error}</p>
 

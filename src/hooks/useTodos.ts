@@ -8,28 +8,28 @@ export type Todo = {
 }
 
 export const useTodos = () => {
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [data, setData] = useState<Todo[] | null>(null)
 
-  const fetchData = async () => {
+  const fetchTodos = async () => {
     try {
-      setLoading(true)
+      setIsLoading(true)
       const resData = await fetch('http://localhost:4000/todos').then((res) =>
         res.json()
       )
 
       setData(resData)
-      setLoading(false)
+      setIsLoading(false)
     } catch (err) {
       setError('Sorry, something went wrong.')
-      setLoading(false)
+      setIsLoading(false)
     }
   }
 
   useEffect(() => {
-    fetchData()
+    fetchTodos()
   }, [])
 
-  return { data, loading, error }
+  return { data, isLoading, error }
 }
